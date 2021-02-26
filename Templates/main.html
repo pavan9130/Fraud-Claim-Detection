@@ -1,0 +1,252 @@
+<!doctype html>
+<html>
+<head>
+<style>
+body {
+ overflow: scroll;
+ 
+}
+.drop{
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #3CBC8D;
+  color: white;
+  
+}
+
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border: none;
+  background-color: #3CBC8D;
+  color: white;
+}
+
+.button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin-left: 150px;
+}
+.tb{
+  margin-left: 400px;
+  font-size: 20px;
+}
+.td1
+{
+  width:200px;
+  
+}
+.h1
+{
+ color:red;
+ margin-left:55px;
+ font-size:35px;
+}
+.p
+{
+ color:red;
+ margin-left:50px;
+ font-size:30px;
+}
+</style>
+<title>Fraud Insurance claim Detection </title>
+</head>
+<body>
+ <div class="tb">
+	<h1 class="h1">Fraud claim Detection  </h1>
+    <form action="{{ url_for('predict')}}"  method="post">
+    <table>  	
+	<tr>
+		<td class="td1">Enter Days spent</td>
+		<td><input type="text" name="Days_spend_hsptl"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /> </td>
+    </tr>
+     <tr>
+		<td>Enter diagnosis code</td>
+		<td>
+		<input type="text" name="ccs_diagnosis_code"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /> 
+		</td>
+	 </tr>
+	 <tr>
+	    <td>Enter procedure code</td>
+		 <td>
+		<input type="text" name="ccs_procedure_code"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || (event.charCode >= 48 && event.charCode <= 57))" /> 
+		</td>
+	 </tr>
+	 <tr>
+	     <td>Enter Weight of baby</td>
+	     <td>
+		 <input type="text" name="Weight_baby"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /> 
+		</td>
+	 </tr>
+	 <tr>
+	   <td>Enter Total charg</td>
+		<td><input type="text" name="Tot_charg"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /> </td>
+	 </tr>
+	 <tr>
+	    <td>Enter Total cost</td>
+		<td><input type="text" name="Tot_cost"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))" /></td>
+	 </tr>
+	 <tr>
+	    <td>Enter Ratio</td>
+		<td><input type="text" name="ratio_of_total_costs_to_total_charges"  required="required" onkeypress="return (event.charCode !=8 && event.charCode ==0 || ( event.charCode == 46 || (event.charCode >= 48 && event.charCode <= 57)))"/></td>
+	 </tr>
+	 <tr>
+		 <td><label for="Area">Area Service:</label></td>
+		 <td>
+         <select name="Area" id="Area" class="drop" required>
+		        <option value="">None</option>
+                <option value="Western NY">Western NY</option>
+                <option value="Finger Lakes">Finger Lakes</option>
+                <option value="Central NY">Central NY</option>
+                <option value="Southern Tier">Southern Tier</option>
+                <option value="Capital/Adirond">Capital/Adirond</option>
+                <option value="Hudson Valley">Hudson Valley</option>
+                <option value="New York City">'New York City</option>    
+        </select>
+		</td>
+	 </tr>
+	 <tr>
+        <td><label for="Age">Age Group:</label></td>
+        <td>
+		 <select name="Age" id="Age" class="drop" required>
+                <option value="">None</option>		 
+                <option value="0 to 17">0 to 17</option>
+                <option value="30 to 49">30 to 49</option>
+                <option value="18 to 29">18 to 29</option>
+                <option value="50 to 69">50 to 69</option>
+                <option value="70 or Older">70 or Older</option>
+        </select>
+		</td>
+	</tr>
+	 <tr>
+	    <td>
+        <label for="Gender">Gender:</label></td>
+		<td>
+         <select name="Gender" id="Gender" class="drop"v required>
+		        <option value="">None</option>
+                <option value="F">Female</option>
+                <option value="M">Male</option>
+                <option value="U">U</option>
+                 
+        </select>
+		</td>
+	</tr>
+	<tr>
+	    <td>
+        <label for="Cultural">Cultural group:</label></td>
+         <td>
+		 <select name="Cultural" id="Cultural"  class="drop"required>
+		        <option value="">None</option>
+                <option value="White">White</option>
+                <option value="Black/African American">Black/African American</option>
+                <option value="Unknown">Unknown</option>
+                <option value="Other Race">Other Race</option>    
+        </select>
+		</td>
+     </tr> 
+	 <tr>
+        <td><label for="Admission">Admission type:</label></td>
+		<td>
+         <select name="Admission" id="Admission" class="drop" required>
+		        <option value="">None</option>
+                <option value="Elective">Elective</option>
+                <option value="Urgent">Urgent</option>
+                <option value="Emergency">Emergency</option>
+                <option value="Newborn">Newborn</option>
+                <option value="Trauma">Trauma</option> 
+                <option value="Not Available">Not Available</option>                 
+        </select>
+	    </td>
+	 </tr>
+	 <tr>
+	     <td>
+         <label for="Mortality">Mortality risk:</label></td>
+		 <td>
+         <select name="Mortality" id="Mortality" class="drop" required>
+		        <option value="">None</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>                
+        </select>
+		</td>
+	</tr>
+	<tr> 
+	     <td>
+         <label for="Ethnicity">Ethnicity:</label></td>
+		 <td>
+         <select name="Ethnicity" id="Ethnicity" class="drop" required>
+		        <option value="">None</option>
+                <option value="Not Span/Hispanic">Not Span/Hispanic'</option>
+                <option value="Spanish/Hispanic">Spanish/Hispanic</option>
+                <option value="Unknown">Unknown</option>              
+        </select>
+	    </td>
+	</tr>
+	<tr> 
+	     <td>
+         <label for="Emergency">Emergency dept:</label></td>
+		 <td>
+         <select name="Emergency" id="Emergency" class="drop" required>
+		        <option value="">None</option>
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+                
+        </select>
+		</td>
+	</tr>
+    <tr>
+	     <td>
+         <label for="Codeillness">Code illness:</label></td>
+		 
+		 <td>
+         <select name="Codeillness" id="Codeillness" class="drop" required>
+		        <option value="">None</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>                
+        </select>
+		</td>
+	</tr>
+	<tr>
+	     <td>
+         <label for="Payment">Payment Typology:</label></td>
+		 <td>
+         <select name="Payment" id="Payment" class="drop" required>
+		        <option value="">None</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option> 
+                <option value="0">5</option>               
+        </select>
+		</td>
+    </tr>		
+	<tr>
+	    <td></td>
+		<td>
+        
+		</td>
+	</tr>
+    </table>
+<br>
+<br>
+<button type="submit" class="button">Detect</button>
+</form>
+   <p class ="p"> {{ prediction_text }} </p>
+ </div>
+</body>
+</html>
